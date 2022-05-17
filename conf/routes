@@ -11,6 +11,13 @@ GET     /stations/{id}                          StationCtrl.index
 POST    /dashboard/addstation                   Dashboard.addStation
 POST    /station/{id}/addreading                StationCtrl.addReading
 
+# Authentication
+GET    /signup                                  Accounts.signup
+GET    /login                                   Accounts.login
+POST   /register                                Accounts.register
+POST   /authenticate                            Accounts.authenticate
+GET    /logout                                  Accounts.logout
+
 # Ignore favicon requests
 GET     /favicon.ico                            404
 
