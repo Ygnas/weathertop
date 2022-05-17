@@ -1,0 +1,76 @@
+<div class="ui doubling five column grid">
+#{list items:_station, as:'station'}
+  <div class="equal height row">
+    <div class="stretched column">
+      <div class="ui inverted segment">
+        <div class="ui two column stackable grid">
+          <div class="column">
+            <h3 class="ui header inverted">${station.name}</h3>
+          </div>
+          <div class="column">
+
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="stretched column">
+      <div class="ui inverted segment">
+        <div class="ui two column stackable grid">
+          <div class="column">
+            <h3 class="ui header inverted">Weather</h3>
+            <p>${station.latestReadings?.weatherCondition}</p>
+          </div>
+          <div class="column">
+
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="stretched column">
+      <div class="ui inverted segment">
+        <div class="ui two column stackable grid">
+          <div class="column">
+            <h3 class="ui header inverted">Temp</h3>
+              #{if station.latestReadings}
+                <p>${station.latestReadings?.temperature} C <br> ${station.latestReadings?.temperatureInF} F</p>
+              #{/if}
+          </div>
+          <div class="column">
+
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="stretched column">
+      <div class="ui inverted segment">
+        <div class="ui two column stackable grid">
+          <div class="column">
+            <h3 class="ui header inverted">Wind</h3>
+              #{if station.latestReadings}
+                <p>${station.latestReadings?.windInBeaufort} bft</p>
+              #{/if}
+          </div>
+          <div class="column">
+
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="stretched column">
+      <div class="ui inverted segment">
+        <div class="ui two column stackable grid">
+          <div class="column">
+            <h3 class="ui header inverted">Pressure</h3>
+              #{if station.latestReadings}
+                <p>${station.latestReadings?.pressure} hpa</p>
+              #{/if}
+          </div>
+          <div class="column">
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+#{/list}
+</div>
