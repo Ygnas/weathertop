@@ -11,6 +11,9 @@ public class Dashboard extends Controller {
     Logger.info("Rendering Dashboard");
 
     List<Station> stations = Station.findAll();
+    for (Station station : stations) {
+      station.updateLatestData();
+    }
     render("dashboard.html", stations);
   }
 }
