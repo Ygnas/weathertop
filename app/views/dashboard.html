@@ -1,0 +1,35 @@
+#{extends 'main.html' /}
+#{set title:'Dashboard' /}
+
+#{menu id:"dashboard"/}
+
+#{list items:stations, as:'station'}
+<section class="ui segment">
+    <h2 class="header">${station.name}</h2>
+    <table class="ui fixed table">
+        <thead>
+        <tr>
+            <th>Code</th>
+            <th>Temp</th>
+            <th>Wind Speed</th>
+        </tr>
+        </thead>
+        <tbody>
+            #{list items:station?.readings, as:'reading'}
+            <tr>
+                <td>
+                ${reading.code}
+                </td>
+                <td>
+                ${reading.temperature}
+                </td>
+                <td>
+                ${reading.windSpeed}
+                </td>
+
+            </tr>
+            #{/list}
+        </tbody>
+    </table>
+</section>
+#{/list}
