@@ -6,9 +6,10 @@
         <div class="ui two column stackable grid">
           <div class="column">
             <h3 class="ui header inverted">${station.name}</h3>
+            <p>Lat: ${station.latitude.round(3)} <br> Lng: ${station.longitude.round(3)}</p>
           </div>
           <div class="column">
-
+            <i class="violet huge marker sun icon"></i>
           </div>
         </div>
       </div>
@@ -21,7 +22,7 @@
             <p>${station.latestReadings?.weatherCondition}</p>
           </div>
           <div class="column">
-
+            <i class="red huge cloud sun icon"></i>
           </div>
         </div>
       </div>
@@ -31,12 +32,13 @@
         <div class="ui two column stackable grid">
           <div class="column">
             <h3 class="ui header inverted">Temp</h3>
-              #{if station.latestReadings}
-                <p>${station.latestReadings?.temperature} C <br> ${station.latestReadings?.temperatureInF} F</p>
-              #{/if}
+            #{if station.latestReadings}
+              <p>${station.latestReadings?.temperature} C <br> ${station.latestReadings?.temperatureInF} F</p>
+              <p>Max: ${station.temperatureMax} <br> Min: ${station.temperatureMin}</p>
+            #{/if}
           </div>
           <div class="column">
-
+            <i class="blue temperature low fitted huge icon"></i>
           </div>
         </div>
       </div>
@@ -46,14 +48,15 @@
         <div class="ui two column stackable grid">
           <div class="column">
             <h3 class="ui header inverted">Wind</h3>
-              #{if station.latestReadings}
-                <p>${station.latestReadings?.windInBeaufort} bft</p>
-                <p>${station.latestReadings?.windCompass}</p>
-                <p>Feels like <br> ${station.latestReadings?.windChill}</p>
-              #{/if}
+            #{if station.latestReadings}
+              <p>${station.latestReadings?.windInBeaufort} bft</p>
+              <p>${station.latestReadings?.windCompass}</p>
+              <p>Feels like <br> ${station.latestReadings?.windChill}</p>
+              <p>Max: ${station.windSpeedMax} <br> Min: ${station.windSpeedMin}</p>
+            #{/if}
           </div>
           <div class="column">
-
+            <i class="green wind fitted huge icon"></i>
           </div>
         </div>
       </div>
@@ -63,12 +66,13 @@
         <div class="ui two column stackable grid">
           <div class="column">
             <h3 class="ui header inverted">Pressure</h3>
-              #{if station.latestReadings}
-                <p>${station.latestReadings?.pressure} hpa</p>
-              #{/if}
+            #{if station.latestReadings}
+              <p>${station.latestReadings?.pressure} hpa</p>
+              <p>Max: ${station.pressureMax} <br> Min: ${station.pressureMin}</p>
+            #{/if}
           </div>
           <div class="column">
-
+            <i class="orange arrows alternate fitted huge icon"></i>
           </div>
         </div>
       </div>
