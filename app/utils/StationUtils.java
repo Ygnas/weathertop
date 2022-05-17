@@ -20,6 +20,9 @@ public class StationUtils {
     latestReadings.weatherCondition = setWeatherCondition(latestReadings);
     latestReadings.temperatureInF = setTemperatureInF(latestReadings);
     latestReadings.windInBeaufort = calculateBeaufort(latestReadings.windSpeed);
+    latestReadings.windCompass = getCardinalDirection(latestReadings.windDirection);
+    latestReadings.windChill = windChill(latestReadings.temperature, latestReadings.windSpeed);
+
   }
 
   public static String setWeatherCondition(Reading reading) {
@@ -76,5 +79,18 @@ public class StationUtils {
       return 11;
     }
     return 0;
+  }
+
+  public static String getCardinalDirection(float windDirection) {
+    String[] directions = {"North", "North North East", "North East",
+        "East North East", "East", "East South East", "South East",
+        "South South East", "South", "South South West", "South West",
+        "West South West", "West", "West North West", "North West", "North North West", "North"};
+    return directions[(int) Math.round((windDirection % 360) / 22.5)];
+  }
+
+  public static double windChill(double temp, double wind) {
+    double windChill = 13.12 + 0.6215 * temp - 11.37 * Math.pow(wind, 0.16) + 0.3965 * temp * Math.pow(wind, 0.16);
+    return (int) (windChill * 100) / 100.0;
   }
 }

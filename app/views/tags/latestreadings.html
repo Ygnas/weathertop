@@ -48,6 +48,8 @@
             <h3 class="ui header inverted">Wind</h3>
               #{if station.latestReadings}
                 <p>${station.latestReadings?.windInBeaufort} bft</p>
+                <p>${station.latestReadings?.windCompass}</p>
+                <p>Feels like <br> ${station.latestReadings?.windChill}</p>
               #{/if}
           </div>
           <div class="column">
