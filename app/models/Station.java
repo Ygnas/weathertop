@@ -34,6 +34,7 @@ public class Station extends Model {
     latestReadings = StationUtils.getLatestReading(readings);
     if (latestReadings != null) {
       StationUtils.setLatestReadings(latestReadings);
+      StationUtils.setMinMaxValues(this);
     }
   }
 }
