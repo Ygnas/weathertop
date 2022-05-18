@@ -55,27 +55,27 @@ public class StationUtils {
   public static int calculateBeaufort(double windSpeed) {
     if (windSpeed < 1) {
       return 0;
-    } else if (windSpeed >= 1 && windSpeed <= 5) {
+    } else if (windSpeed <= 5) {
       return 1;
-    } else if (windSpeed >= 6 && windSpeed <= 11) {
+    } else if (windSpeed <= 11) {
       return 2;
-    } else if (windSpeed >= 12 && windSpeed <= 19) {
+    } else if (windSpeed <= 19) {
       return 3;
-    } else if (windSpeed >= 20 && windSpeed <= 28) {
+    } else if (windSpeed <= 28) {
       return 4;
-    } else if (windSpeed >= 29 && windSpeed <= 38) {
+    } else if (windSpeed <= 38) {
       return 5;
-    } else if (windSpeed >= 39 && windSpeed <= 49) {
+    } else if (windSpeed <= 49) {
       return 6;
-    } else if (windSpeed >= 50 && windSpeed <= 61) {
+    } else if (windSpeed <= 61) {
       return 7;
-    } else if (windSpeed >= 62 && windSpeed <= 74) {
+    } else if (windSpeed <= 74) {
       return 8;
-    } else if (windSpeed >= 75 && windSpeed <= 88) {
+    } else if (windSpeed <= 88) {
       return 9;
-    } else if (windSpeed >= 89 && windSpeed <= 102) {
+    } else if (windSpeed <= 102) {
       return 10;
-    } else if (windSpeed >= 103 && windSpeed <= 117) {
+    } else if (windSpeed <= 117) {
       return 11;
     }
     return 0;
@@ -103,6 +103,27 @@ public class StationUtils {
       station.windSpeedMax = Math.max(station.windSpeedMax, reading.windSpeed);
       station.pressureMin = Math.min(station.pressureMin, reading.pressure);
       station.pressureMax = Math.max(station.pressureMax, reading.pressure);
+    }
+  }
+
+  public static void updateTrends(Station station) {
+    if (station.readings.size() >= 3) {
+      station.trend = new HashMap<>();
+      Reading first = station.readings.get(station.readings.size() - 1);
+      Reading second = station.readings.get(station.readings.size() - 2);
+      Reading third = station.readings.get(station.readings.size() - 3);
+      if (first.temperature > second.temperature && second.temperature > third.temperature)
+        station.trend.put("temperature", "arrow up");
+      if (first.temperature < second.temperature && second.temperature < third.temperature)
+        station.trend.put("temperature", "arrow down");
+      if (first.windSpeed > second.windSpeed && second.windSpeed > third.windSpeed)
+        station.trend.put("wind", "arrow up");
+      if (first.windSpeed < second.windSpeed && second.windSpeed < third.windSpeed)
+        station.trend.put("wind", "arrow down");
+      if (first.pressure > second.pressure && second.pressure > third.pressure)
+        station.trend.put("pressure", "arrow up");
+      if (first.pressure < second.pressure && second.pressure < third.pressure)
+        station.trend.put("pressure", "arrow down");
     }
   }
 }
