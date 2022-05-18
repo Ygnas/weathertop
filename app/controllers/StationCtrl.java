@@ -18,10 +18,20 @@ public class StationCtrl extends Controller {
 
   public static void addReading(Long id, int code, float temperature, float windSpeed, float windDirection, int pressure) {
     Date date = new Date(System.currentTimeMillis());
-    Reading reading = new Reading(code, temperature, windSpeed, pressure, windDirection);
+    Reading reading = new Reading(code, temperature, windSpeed, pressure, windDirection, date);
     Station station = Station.findById(id);
     station.readings.add(reading);
     station.save();
+    redirect("/stations/" + id);
+  }
+
+  public static void deleteReading(Long id, Long readingid) {
+    Station station = Station.findById(id);
+    Reading reading = Reading.findById(readingid);
+    Logger.info("Removing reading");
+    station.readings.remove(reading);
+    station.save();
+    reading.delete();
     redirect("/stations/" + id);
   }
 }
