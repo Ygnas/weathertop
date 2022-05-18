@@ -37,6 +37,7 @@ public class Station extends Model {
     if (latestReadings != null) {
       StationUtils.setLatestReadings(latestReadings);
       StationUtils.setMinMaxValues(this);
+      StationUtils.updateTrends(this);
     }
   }
 
