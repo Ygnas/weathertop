@@ -93,4 +93,16 @@ public class StationUtils {
     double windChill = 13.12 + 0.6215 * temp - 11.37 * Math.pow(wind, 0.16) + 0.3965 * temp * Math.pow(wind, 0.16);
     return (int) (windChill * 100) / 100.0;
   }
+
+  public static void setMinMaxValues(Station station) {
+    station.temperatureMin = station.windSpeedMin = station.pressureMin = Float.MAX_VALUE;
+    for (Reading reading : station.readings) {
+      station.temperatureMin = Math.min(station.temperatureMin, reading.temperature);
+      station.temperatureMax = Math.max(station.temperatureMax, reading.temperature);
+      station.windSpeedMin = Math.min(station.windSpeedMin, reading.windSpeed);
+      station.windSpeedMax = Math.max(station.windSpeedMax, reading.windSpeed);
+      station.pressureMin = Math.min(station.pressureMin, reading.pressure);
+      station.pressureMax = Math.max(station.pressureMax, reading.pressure);
+    }
+  }
 }
