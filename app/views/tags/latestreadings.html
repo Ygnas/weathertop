@@ -22,7 +22,7 @@
             <p>${station.latestReadings?.weatherCondition}</p>
           </div>
           <div class="column">
-            <i class="red huge cloud sun icon"></i>
+            <i class="red huge ${station.weatherConditionIcon(station.latestReadings?.weatherCondition)} icon"></i>
           </div>
         </div>
       </div>
