@@ -75,10 +75,9 @@ public class StationUtils {
       return 9;
     } else if (windSpeed <= 102) {
       return 10;
-    } else if (windSpeed <= 117) {
+    } else {
       return 11;
     }
-    return 0;
   }
 
   public static String getCardinalDirection(float windDirection) {
