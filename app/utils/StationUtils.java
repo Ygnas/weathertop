@@ -97,8 +97,8 @@ public class StationUtils {
     }
   }
 
-  public static HashMap updateTrends(Station station) {
-    HashMap<String,String> stationTrends = null;
+  public static HashMap<String, String> updateTrends(Station station) {
+    HashMap<String, String> stationTrends = null;
     if (station.readings.size() >= 3) {
       stationTrends = new HashMap<>();
       Reading first = station.readings.get(station.readings.size() - 1);
