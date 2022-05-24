@@ -16,16 +16,8 @@ public class StationUtils {
     return reading;
   }
 
-  public static void setLatestReadings(Reading latestReadings) {
-    latestReadings.weatherCondition = setWeatherCondition(latestReadings);
-    latestReadings.temperatureInF = setTemperatureInF(latestReadings);
-    latestReadings.windInBeaufort = calculateBeaufort(latestReadings.windSpeed);
-    latestReadings.windCompass = getCardinalDirection(latestReadings.windDirection);
-    latestReadings.windChill = windChill(latestReadings.temperature, latestReadings.windSpeed);
-
-  }
-
   public static String setWeatherCondition(Reading reading) {
+    if (reading == null) return "";
     switch (reading.code) {
       case 100:
         return "Clear";
@@ -48,8 +40,8 @@ public class StationUtils {
     }
   }
 
-  public static double setTemperatureInF(Reading reading) {
-    return reading.temperature * 9 / 5 + 32;
+  public static double getTemperatureInF(Double temperature) {
+    return temperature * 9 / 5 + 32;
   }
 
   public static int calculateBeaufort(double windSpeed) {
@@ -105,24 +97,42 @@ public class StationUtils {
     }
   }
 
-  public static void updateTrends(Station station) {
+  public static HashMap updateTrends(Station station) {
+    HashMap<String,String> stationTrends = null;
     if (station.readings.size() >= 3) {
-      station.trend = new HashMap<>();
+      stationTrends = new HashMap<>();
       Reading first = station.readings.get(station.readings.size() - 1);
       Reading second = station.readings.get(station.readings.size() - 2);
       Reading third = station.readings.get(station.readings.size() - 3);
       if (first.temperature > second.temperature && second.temperature > third.temperature)
-        station.trend.put("temperature", "arrow up");
+        stationTrends.put("temperature", "arrow up");
       if (first.temperature < second.temperature && second.temperature < third.temperature)
-        station.trend.put("temperature", "arrow down");
+        stationTrends.put("temperature", "arrow down");
       if (first.windSpeed > second.windSpeed && second.windSpeed > third.windSpeed)
-        station.trend.put("wind", "arrow up");
+        stationTrends.put("wind", "arrow up");
       if (first.windSpeed < second.windSpeed && second.windSpeed < third.windSpeed)
-        station.trend.put("wind", "arrow down");
+        stationTrends.put("wind", "arrow down");
       if (first.pressure > second.pressure && second.pressure > third.pressure)
-        station.trend.put("pressure", "arrow up");
+        stationTrends.put("pressure", "arrow up");
       if (first.pressure < second.pressure && second.pressure < third.pressure)
-        station.trend.put("pressure", "arrow down");
+        stationTrends.put("pressure", "arrow down");
     }
+    return stationTrends;
+  }
+
+  public static String weatherConditionIcon(String weatherCondition) {
+    HashMap<String, String> weatherIconString = new HashMap<String, String>() {
+      {
+        put("Clear", "sun icon");
+        put("Partial Clouds", "cloud sun");
+        put("Cloudy", "cloud icon");
+        put("Light Showers", "cloud sun rain icon");
+        put("Heavy Showers", "cloud showers heavy icon");
+        put("Rain", "cloud rain icon");
+        put("Snow", "snowflake icon");
+        put("Thunder", "bolt icon");
+      }
+    };
+    return weatherIconString.get(weatherCondition);
   }
 }

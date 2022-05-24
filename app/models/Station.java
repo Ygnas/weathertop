@@ -24,7 +24,6 @@ public class Station extends Model {
   public double windSpeedMin;
   public double pressureMax;
   public double pressureMin;
-  public HashMap<String, String> trend;
 
   public Station(String name, double latitude, double longitude) {
     this.name = name;
@@ -35,25 +34,7 @@ public class Station extends Model {
   public void updateLatestData() {
     latestReadings = StationUtils.getLatestReading(readings);
     if (latestReadings != null) {
-      StationUtils.setLatestReadings(latestReadings);
       StationUtils.setMinMaxValues(this);
-      StationUtils.updateTrends(this);
     }
-  }
-
-  public String weatherConditionIcon(String weatherCondition) {
-    HashMap<String, String> weatherIconString = new HashMap<String, String>() {
-      {
-        put("Clear", "sun icon");
-        put("Partial Clouds", "cloud sun");
-        put("Cloudy", "cloud icon");
-        put("Light Showers", "cloud sun rain icon");
-        put("Heavy Showers", "cloud showers heavy icon");
-        put("Rain", "cloud rain icon");
-        put("Snow", "snowflake icon");
-        put("Thunder", "bolt icon");
-      }
-    };
-    return weatherIconString.get(weatherCondition);
   }
 }

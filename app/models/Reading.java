@@ -11,12 +11,7 @@ public class Reading extends Model {
   public double temperature;
   public double windSpeed;
   public int pressure;
-  public String weatherCondition;
-  public double temperatureInF;
-  public int windInBeaufort;
   public float windDirection;
-  public String windCompass;
-  public double windChill;
   public Date date;
 
   public Reading(int code, double temperature, double windSpeed, int pressure, float windDirection, Date date) {

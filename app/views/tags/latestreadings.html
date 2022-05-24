@@ -1,85 +1,98 @@
 <div class="ui doubling five column grid">
 #{list items:_station, as:'station'}
-  <div class="equal height row">
-    <div class="stretched column">
-      <div class="ui inverted segment">
-        <div class="ui two column stackable grid">
-          <div class="column">
-            <h3 class="ui header inverted">${station.name}</h3>
-            <p>Lat: ${station.latitude.round(3)} <br> Lng: ${station.longitude.round(3)}</p>
+    #{list items:utils.StationUtils, as:'util'}
+      <div class="equal height row">
+        <div class="stretched column">
+          <div class="ui inverted segment">
+            <div class="ui two column stackable grid">
+              <div class="column">
+                <h3 class="ui header inverted">${station.name}</h3>
+                <p>Lat: ${station.latitude.round(3)} <br> Lng: ${station.longitude.round(3)}</p>
+              </div>
+              <div class="column">
+                <i class="violet huge marker sun icon"></i>
+              </div>
+            </div>
           </div>
-          <div class="column">
-            <i class="violet huge marker sun icon"></i>
+        </div>
+        <div class="stretched column">
+          <div class="ui inverted segment">
+            <div class="ui two column stackable grid">
+              <div class="column">
+                <h3 class="ui header inverted">Weather</h3>
+                <p>${util.setWeatherCondition(station.latestReadings)}</p>
+              </div>
+              <div class="column">
+                <i class="red huge ${util.weatherConditionIcon(util.setWeatherCondition(station.latestReadings))} icon"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="stretched column">
+          <div class="ui inverted segment">
+            <div class="ui two column stackable grid">
+              <div class="column">
+                <h3 class="ui header inverted">Temp</h3>
+                  #{if station.latestReadings}
+                    <p>${util.getLatestReading(station.readings).temperature} C
+                      <br> ${util.getTemperatureInF(util.getLatestReading(station.readings).temperature)}
+                      F</p>
+                    <p>Max: ${station.temperatureMax} <br> Min: ${station.temperatureMin}</p>
+                  #{/if}
+              </div>
+              <div class="column">
+                <i class="blue temperature low fitted huge icon"></i>
+                <div class="ui center aligned inverted segment">
+                  <i class="blue ${util.updateTrends(station)?.get("temperature")} fitted big icon"></i>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="stretched column">
+          <div class="ui inverted segment">
+            <div class="ui two column stackable grid">
+              <div class="column">
+                <h3 class="ui header inverted">Wind</h3>
+                  #{if station.latestReadings}
+                    <p>${util.calculateBeaufort(util.getLatestReading(station.readings).windSpeed)}
+                      bft</p>
+                    <p>${util.getCardinalDirection(util.getLatestReading(station.readings).windDirection)}</p>
+                    <p>Feels like <br>
+                    ${util.windChill(util.getLatestReading(station.readings).temperature, util.getLatestReading(station.readings).windSpeed)}
+                    </p>
+                    <p>Max: ${station.windSpeedMax} <br> Min: ${station.windSpeedMin}</p>
+                  #{/if}
+              </div>
+              <div class="column">
+                <i class="green wind fitted huge icon"></i>
+                <div class="ui center aligned inverted segment">
+                  <i class="green ${util.updateTrends(station)?.get("wind")} fitted big icon"></i>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="stretched column">
+          <div class="ui inverted segment">
+            <div class="ui two column stackable grid">
+              <div class="column">
+                <h3 class="ui header inverted">Pressure</h3>
+                  #{if station.latestReadings}
+                    <p>${station.latestReadings?.pressure} hpa</p>
+                    <p>Max: ${station.pressureMax} <br> Min: ${station.pressureMin}</p>
+                  #{/if}
+              </div>
+              <div class="column">
+                <i class="orange arrows alternate fitted huge icon"></i>
+                <div class="ui center aligned inverted segment">
+                  <i class="orange ${util.updateTrends(station)?.get("pressure")} fitted big icon"></i>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
-    </div>
-    <div class="stretched column">
-      <div class="ui inverted segment">
-        <div class="ui two column stackable grid">
-          <div class="column">
-            <h3 class="ui header inverted">Weather</h3>
-            <p>${station.latestReadings?.weatherCondition}</p>
-          </div>
-          <div class="column">
-            <i class="red huge ${station.weatherConditionIcon(station.latestReadings?.weatherCondition)} icon"></i>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="stretched column">
-      <div class="ui inverted segment">
-        <div class="ui two column stackable grid">
-          <div class="column">
-            <h3 class="ui header inverted">Temp</h3>
-            #{if station.latestReadings}
-              <p>${station.latestReadings?.temperature} C <br> ${station.latestReadings?.temperatureInF} F</p>
-              <p>Max: ${station.temperatureMax} <br> Min: ${station.temperatureMin}</p>
-            #{/if}
-          </div>
-          <div class="column">
-            <i class="blue temperature low fitted huge icon"></i>
-            <i class="blue ${station.trend?.get("temperature")} fitted big icon"></i>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="stretched column">
-      <div class="ui inverted segment">
-        <div class="ui two column stackable grid">
-          <div class="column">
-            <h3 class="ui header inverted">Wind</h3>
-            #{if station.latestReadings}
-              <p>${station.latestReadings?.windInBeaufort} bft</p>
-              <p>${station.latestReadings?.windCompass}</p>
-              <p>Feels like <br> ${station.latestReadings?.windChill}</p>
-              <p>Max: ${station.windSpeedMax} <br> Min: ${station.windSpeedMin}</p>
-            #{/if}
-          </div>
-          <div class="column">
-            <i class="green wind fitted huge icon"></i>
-            <i class="green ${station.trend?.get("wind")} fitted big icon"></i>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="stretched column">
-      <div class="ui inverted segment">
-        <div class="ui two column stackable grid">
-          <div class="column">
-            <h3 class="ui header inverted">Pressure</h3>
-            #{if station.latestReadings}
-              <p>${station.latestReadings?.pressure} hpa</p>
-              <p>Max: ${station.pressureMax} <br> Min: ${station.pressureMin}</p>
-            #{/if}
-          </div>
-          <div class="column">
-            <i class="orange arrows alternate fitted huge icon"></i>
-            <i class="orange ${station.trend?.get("pressure")} fitted big icon"></i>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
+    #{/list}
 #{/list}
 </div>
