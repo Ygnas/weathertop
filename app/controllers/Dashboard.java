@@ -15,9 +15,6 @@ public class Dashboard extends Controller {
     Member member = Accounts.getLoggedInMember();
     List<Station> stations = member.stations;
     Collections.sort(stations, Comparator.comparing(station -> station.name));
-    for (Station station : stations) {
-      station.updateLatestData();
-    }
     render("dashboard.html", stations);
   }
 

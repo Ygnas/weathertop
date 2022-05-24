@@ -14,7 +14,6 @@ public class StationCtrl extends Controller {
     Member member = Accounts.getLoggedInMember();
     Station station = Station.findById(id);
     Logger.info("Station id = " + id);
-    station.updateLatestData();
     render("station.html", station);
   }
 

@@ -1,6 +1,7 @@
 <div class="ui doubling five column grid">
 #{list items:_station, as:'station'}
     #{list items:utils.StationUtils, as:'util'}
+    ${util.setMinMaxValues(station)}
       <div class="equal height row">
         <div class="stretched column">
           <div class="ui inverted segment">
