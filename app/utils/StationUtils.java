@@ -8,6 +8,11 @@ import java.util.List;
 
 public class StationUtils {
 
+  /**
+   * This method is used to get the latest reading
+   * @param readings This is a list of Station readings
+   * @return This returns the latest reading
+   */
   public static Reading getLatestReading(List<Reading> readings) {
     Reading reading = null;
     if (!readings.isEmpty()) {
@@ -16,6 +21,11 @@ public class StationUtils {
     return reading;
   }
 
+  /**
+   * This method is used get the Weather Condition
+   * @param reading This is a reading
+   * @return This returns a String of weather condition
+   */
   public static String setWeatherCondition(Reading reading) {
     if (reading == null) return "";
     switch (reading.code) {
@@ -40,10 +50,20 @@ public class StationUtils {
     }
   }
 
+  /**
+   * This method is used to convert celsius to fahrenheit
+   * @param temperature This is temperature in celsius
+   * @return This returns temperature to fahrenheit
+   */
   public static double getTemperatureInF(Double temperature) {
     return temperature * 9 / 5 + 32;
   }
 
+  /**
+   * This method is used to get Beaufort value
+   * @param windSpeed This is wind speed
+   * @return This returns an int based on wind Speed
+   */
   public static int calculateBeaufort(double windSpeed) {
     if (windSpeed < 1) {
       return 0;
@@ -72,6 +92,11 @@ public class StationUtils {
     }
   }
 
+  /**
+   * This method is used to get the Cardinal Direction
+   * @param windDirection This is a list of Station readings
+   * @return This returns the Cardinal Direction
+   */
   public static String getCardinalDirection(float windDirection) {
     String[] directions = {"North", "North North East", "North East",
         "East North East", "East", "East South East", "South East",
@@ -80,11 +105,21 @@ public class StationUtils {
     return directions[(int) Math.round((windDirection % 360) / 22.5)];
   }
 
+  /**
+   * This method is used to calculate how the temperature feels like
+   * @param temp This is a temperature
+   * @param wind This is a wind speed
+   * @return This returns how the temperature feels like
+   */
   public static double windChill(double temp, double wind) {
     double windChill = 13.12 + 0.6215 * temp - 11.37 * Math.pow(wind, 0.16) + 0.3965 * temp * Math.pow(wind, 0.16);
     return (int) (windChill * 100) / 100.0;
   }
 
+  /**
+   * This method is used to set min/max values for each station
+   * @param station This is a Station
+   */
   public static void setMinMaxValues(Station station) {
     station.temperatureMin = station.windSpeedMin = station.pressureMin = Float.MAX_VALUE;
     for (Reading reading : station.readings) {
@@ -97,6 +132,11 @@ public class StationUtils {
     }
   }
 
+  /**
+   * This method is used to get the temperature, wind and pressure trends
+   * @param station This is a station
+   * @return This returns a HashMap of trends
+   */
   public static HashMap<String, String> updateTrends(Station station) {
     HashMap<String, String> stationTrends = null;
     if (station.readings.size() >= 3) {
@@ -120,6 +160,11 @@ public class StationUtils {
     return stationTrends;
   }
 
+  /**
+   * This method is used to get the weather icon based on weatherCondition
+   * @param weatherCondition This is a weather Condition
+   * @return This returns a HashMap of weather icons
+   */
   public static String weatherConditionIcon(String weatherCondition) {
     HashMap<String, String> weatherIconString = new HashMap<String, String>() {
       {
