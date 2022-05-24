@@ -1,13 +1,11 @@
 package models;
 
 import play.db.jpa.Model;
-import utils.StationUtils;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 @Entity
@@ -28,9 +26,5 @@ public class Station extends Model {
     this.name = name;
     this.latitude = latitude;
     this.longitude = longitude;
-  }
-
-  public void updateLatestData() {
-    StationUtils.setMinMaxValues(this);
   }
 }
