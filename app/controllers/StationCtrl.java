@@ -1,5 +1,6 @@
 package controllers;
 
+import models.Member;
 import models.Reading;
 import models.Station;
 import play.Logger;
@@ -10,6 +11,7 @@ import java.util.Date;
 public class StationCtrl extends Controller {
 
   public static void index(Long id) {
+    Member member = Accounts.getLoggedInMember();
     Station station = Station.findById(id);
     Logger.info("Station id = " + id);
     station.updateLatestData();
@@ -17,6 +19,7 @@ public class StationCtrl extends Controller {
   }
 
   public static void addReading(Long id, int code, float temperature, float windSpeed, float windDirection, int pressure) {
+    Member member = Accounts.getLoggedInMember();
     Date date = new Date(System.currentTimeMillis());
     Reading reading = new Reading(code, temperature, windSpeed, pressure, windDirection, date);
     Station station = Station.findById(id);
@@ -26,6 +29,7 @@ public class StationCtrl extends Controller {
   }
 
   public static void deleteReading(Long id, Long readingid) {
+    Member member = Accounts.getLoggedInMember();
     Station station = Station.findById(id);
     Reading reading = Reading.findById(readingid);
     Logger.info("Removing reading");
