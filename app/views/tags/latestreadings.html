@@ -20,10 +20,10 @@
             <div class="ui two column stackable grid">
               <div class="column">
                 <h3 class="ui header inverted">Weather</h3>
-                <p>${util.setWeatherCondition(station.latestReadings)}</p>
+                <p>${util.setWeatherCondition(util.getLatestReading(station.readings))}</p>
               </div>
               <div class="column">
-                <i class="red huge ${util.weatherConditionIcon(util.setWeatherCondition(station.latestReadings))} icon"></i>
+                <i class="red huge ${util.weatherConditionIcon(util.setWeatherCondition(util.getLatestReading(station.readings)))} icon"></i>
               </div>
             </div>
           </div>
@@ -33,7 +33,7 @@
             <div class="ui two column stackable grid">
               <div class="column">
                 <h3 class="ui header inverted">Temp</h3>
-                  #{if station.latestReadings}
+                  #{if util.getLatestReading(station.readings)}
                     <p>${util.getLatestReading(station.readings).temperature} C
                       <br> ${util.getTemperatureInF(util.getLatestReading(station.readings).temperature)}
                       F</p>
@@ -54,7 +54,7 @@
             <div class="ui two column stackable grid">
               <div class="column">
                 <h3 class="ui header inverted">Wind</h3>
-                  #{if station.latestReadings}
+                  #{if util.getLatestReading(station.readings)}
                     <p>${util.calculateBeaufort(util.getLatestReading(station.readings).windSpeed)}
                       bft</p>
                     <p>${util.getCardinalDirection(util.getLatestReading(station.readings).windDirection)}</p>
@@ -78,8 +78,8 @@
             <div class="ui two column stackable grid">
               <div class="column">
                 <h3 class="ui header inverted">Pressure</h3>
-                  #{if station.latestReadings}
-                    <p>${station.latestReadings?.pressure} hpa</p>
+                  #{if util.getLatestReading(station.readings)}
+                    <p>${util.getLatestReading(station.readings)?.pressure} hpa</p>
                     <p>Max: ${station.pressureMax} <br> Min: ${station.pressureMin}</p>
                   #{/if}
               </div>
