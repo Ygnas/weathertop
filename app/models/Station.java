@@ -15,7 +15,6 @@ public class Station extends Model {
   public String name;
   @OneToMany(cascade = CascadeType.ALL)
   public List<Reading> readings = new ArrayList<>();
-  public Reading latestReadings;
   public double latitude;
   public double longitude;
   public double temperatureMax;
@@ -32,9 +31,6 @@ public class Station extends Model {
   }
 
   public void updateLatestData() {
-    latestReadings = StationUtils.getLatestReading(readings);
-    if (latestReadings != null) {
-      StationUtils.setMinMaxValues(this);
-    }
+    StationUtils.setMinMaxValues(this);
   }
 }
