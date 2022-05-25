@@ -3,6 +3,8 @@ package utils;
 import models.Reading;
 import models.Station;
 
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 
@@ -28,7 +30,7 @@ public class StationUtils {
    * @param reading This is a reading
    * @return This returns a String of weather condition
    */
-  public static String setWeatherCondition(Reading reading) {
+  public static String getWeatherCondition(Reading reading) {
     if (reading == null) return "";
     switch (reading.code) {
       case 100:
@@ -127,16 +129,15 @@ public class StationUtils {
    *
    * @param station This is a Station
    */
-  public static void setMinMaxValues(Station station) {
-    station.temperatureMin = station.windSpeedMin = station.pressureMin = Float.MAX_VALUE;
-    for (Reading reading : station.readings) {
-      station.temperatureMin = Math.min(station.temperatureMin, reading.temperature);
-      station.temperatureMax = Math.max(station.temperatureMax, reading.temperature);
-      station.windSpeedMin = Math.min(station.windSpeedMin, reading.windSpeed);
-      station.windSpeedMax = Math.max(station.windSpeedMax, reading.windSpeed);
-      station.pressureMin = Math.min(station.pressureMin, reading.pressure);
-      station.pressureMax = Math.max(station.pressureMax, reading.pressure);
-    }
+  public static HashMap<String, Double> getMinMaxValues(Station station) {
+    HashMap<String, Double> minMaxValues = new HashMap<>();
+    minMaxValues.put("temperatureMin",Collections.min(station.readings, Comparator.comparing(reading -> reading.temperature)).temperature);
+    minMaxValues.put("temperatureMax",Collections.max(station.readings, Comparator.comparing(reading -> reading.temperature)).temperature);
+    minMaxValues.put("windSpeedMin",Collections.min(station.readings, Comparator.comparing(reading -> reading.windSpeed)).windSpeed);
+    minMaxValues.put("windSpeedMax",Collections.max(station.readings, Comparator.comparing(reading -> reading.windSpeed)).windSpeed);
+    minMaxValues.put("pressureMin",(double)Collections.min(station.readings, Comparator.comparing(reading -> reading.pressure)).pressure);
+    minMaxValues.put("pressureMax",(double)Collections.max(station.readings, Comparator.comparing(reading -> reading.pressure)).pressure);
+    return minMaxValues;
   }
 
   /**
