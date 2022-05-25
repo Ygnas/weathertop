@@ -10,6 +10,7 @@ public class StationUtils {
 
   /**
    * This method is used to get the latest reading
+   *
    * @param readings This is a list of Station readings
    * @return This returns the latest reading
    */
@@ -23,6 +24,7 @@ public class StationUtils {
 
   /**
    * This method is used get the Weather Condition
+   *
    * @param reading This is a reading
    * @return This returns a String of weather condition
    */
@@ -52,6 +54,7 @@ public class StationUtils {
 
   /**
    * This method is used to convert celsius to fahrenheit
+   *
    * @param temperature This is temperature in celsius
    * @return This returns temperature to fahrenheit
    */
@@ -61,6 +64,7 @@ public class StationUtils {
 
   /**
    * This method is used to get Beaufort value
+   *
    * @param windSpeed This is wind speed
    * @return This returns an int based on wind Speed
    */
@@ -94,6 +98,7 @@ public class StationUtils {
 
   /**
    * This method is used to get the Cardinal Direction
+   *
    * @param windDirection This is a list of Station readings
    * @return This returns the Cardinal Direction
    */
@@ -107,6 +112,7 @@ public class StationUtils {
 
   /**
    * This method is used to calculate how the temperature feels like
+   *
    * @param temp This is a temperature
    * @param wind This is a wind speed
    * @return This returns how the temperature feels like
@@ -118,6 +124,7 @@ public class StationUtils {
 
   /**
    * This method is used to set min/max values for each station
+   *
    * @param station This is a Station
    */
   public static void setMinMaxValues(Station station) {
@@ -134,6 +141,7 @@ public class StationUtils {
 
   /**
    * This method is used to get the temperature, wind and pressure trends
+   *
    * @param station This is a station
    * @return This returns a HashMap of trends
    */
@@ -162,6 +170,7 @@ public class StationUtils {
 
   /**
    * This method is used to get the weather icon based on weatherCondition
+   *
    * @param weatherCondition This is a weather Condition
    * @return This returns a HashMap of weather icons
    */
