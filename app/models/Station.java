@@ -15,12 +15,6 @@ public class Station extends Model {
   public List<Reading> readings = new ArrayList<>();
   public double latitude;
   public double longitude;
-  public double temperatureMax;
-  public double temperatureMin;
-  public double windSpeedMax;
-  public double windSpeedMin;
-  public double pressureMax;
-  public double pressureMin;
 
   public Station(String name, double latitude, double longitude) {
     this.name = name;
