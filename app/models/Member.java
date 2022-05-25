@@ -25,6 +25,13 @@ public class Member extends Model {
     this.password = password;
   }
 
+  public void editMember(String firstname, String lastname, String email, String password) {
+    this.firstname = firstname;
+    this.lastname = lastname;
+    this.email = email;
+    this.password = password;
+  }
+
   public static Member findByEmail(String email)
   {
     return find("email", email).first();
