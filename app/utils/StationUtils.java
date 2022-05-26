@@ -130,6 +130,7 @@ public class StationUtils {
    * This method is used to set min/max values for each station
    *
    * @param station This is a Station
+   * @return This returns hashmap with all the min max values
    */
   public static HashMap<String, Double> getMinMaxValues(Station station) {
     HashMap<String, Double> minMaxValues = new HashMap<>();
