@@ -20,10 +20,10 @@
             <div class="ui two column stackable grid">
               <div class="column">
                 <h3 class="ui header inverted">Weather</h3>
-                <p>${util.getWeatherCondition(util.getLatestReading(station.readings))}</p>
+                <p>${util.getWeatherCondition(station.readings)}</p>
               </div>
               <div class="column">
-                <i class="red huge ${util.weatherConditionIcon(util.getWeatherCondition(util.getLatestReading(station.readings)))} icon"></i>
+                <i class="red huge ${util.weatherConditionIcon(station.readings)} icon"></i>
               </div>
             </div>
           </div>
@@ -35,9 +35,10 @@
                 <h3 class="ui header inverted">Temp</h3>
                   #{if util.getLatestReading(station.readings)}
                     <p>${util.getLatestReading(station.readings).temperature} C
-                      <br> ${util.getTemperatureInF(util.getLatestReading(station.readings).temperature)}
+                      <br> ${util.getTemperatureInF(station.readings)}
                       F</p>
-                    <p>Max: ${util.getMinMaxValues(station).get("temperatureMax")} <br> Min: ${util.getMinMaxValues(station).get("temperatureMin")}</p>
+                    <p>Max: ${util.getMinMaxValues(station).get("temperatureMax")} <br>
+                      Min: ${util.getMinMaxValues(station).get("temperatureMin")}</p>
                   #{/if}
               </div>
               <div class="column">
@@ -55,13 +56,14 @@
               <div class="column">
                 <h3 class="ui header inverted">Wind</h3>
                   #{if util.getLatestReading(station.readings)}
-                    <p>${util.calculateBeaufort(util.getLatestReading(station.readings).windSpeed)}
+                    <p>${util.calculateBeaufort(station.readings)}
                       bft</p>
-                    <p>${util.getCardinalDirection(util.getLatestReading(station.readings).windDirection)}</p>
+                    <p>${util.getCardinalDirection(station.readings)}</p>
                     <p>Feels like <br>
-                    ${util.windChill(util.getLatestReading(station.readings).temperature, util.getLatestReading(station.readings).windSpeed)}
+                    ${util.windChill(station.readings)}
                     </p>
-                    <p>Max: ${util.getMinMaxValues(station).get("windSpeedMax")} <br> Min: ${util.getMinMaxValues(station).get("windSpeedMin")}</p>
+                    <p>Max: ${util.getMinMaxValues(station).get("windSpeedMax")} <br>
+                      Min: ${util.getMinMaxValues(station).get("windSpeedMin")}</p>
                   #{/if}
               </div>
               <div class="column">
@@ -80,7 +82,8 @@
                 <h3 class="ui header inverted">Pressure</h3>
                   #{if util.getLatestReading(station.readings)}
                     <p>${util.getLatestReading(station.readings)?.pressure} hpa</p>
-                    <p>Max: ${(int)util.getMinMaxValues(station).get("pressureMax")} <br> Min: ${(int)util.getMinMaxValues(station).get("pressureMin")}</p>
+                    <p>Max: ${(int)util.getMinMaxValues(station).get("pressureMax")} <br>
+                      Min: ${(int)util.getMinMaxValues(station).get("pressureMin")}</p>
                   #{/if}
               </div>
               <div class="column">

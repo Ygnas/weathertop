@@ -27,12 +27,12 @@ public class StationUtils {
   /**
    * This method is used get the Weather Condition
    *
-   * @param reading This is a reading
+   * @param readings This is a list of readings
    * @return This returns a String of weather condition
    */
-  public static String getWeatherCondition(Reading reading) {
-    if (reading == null) return "";
-    switch (reading.code) {
+  public static String getWeatherCondition(List<Reading> readings) {
+    if (getLatestReading(readings) == null) return "";
+    switch (getLatestReading(readings).code) {
       case 100:
         return "Clear";
       case 200:
@@ -57,20 +57,21 @@ public class StationUtils {
   /**
    * This method is used to convert celsius to fahrenheit
    *
-   * @param temperature This is temperature in celsius
+   * @param readings This is a list of readings
    * @return This returns temperature to fahrenheit
    */
-  public static double getTemperatureInF(Double temperature) {
-    return temperature * 9 / 5 + 32;
+  public static double getTemperatureInF(List<Reading> readings) {
+    return getLatestReading(readings).temperature * 9 / 5 + 32;
   }
 
   /**
    * This method is used to get Beaufort value
    *
-   * @param windSpeed This is wind speed
+   * @param readings This is a list of readings
    * @return This returns an int based on wind Speed
    */
-  public static int calculateBeaufort(double windSpeed) {
+  public static int calculateBeaufort(List<Reading> readings) {
+    double windSpeed = getLatestReading(readings).windSpeed;
     if (windSpeed < 1) {
       return 0;
     } else if (windSpeed <= 5) {
@@ -101,25 +102,26 @@ public class StationUtils {
   /**
    * This method is used to get the Cardinal Direction
    *
-   * @param windDirection This is a list of Station readings
+   * @param readings This is a list of readings
    * @return This returns the Cardinal Direction
    */
-  public static String getCardinalDirection(float windDirection) {
+  public static String getCardinalDirection(List<Reading> readings) {
     String[] directions = {"North", "North North East", "North East",
         "East North East", "East", "East South East", "South East",
         "South South East", "South", "South South West", "South West",
         "West South West", "West", "West North West", "North West", "North North West", "North"};
-    return directions[(int) Math.round((windDirection % 360) / 22.5)];
+    return directions[(int) Math.round((getLatestReading(readings).windDirection % 360) / 22.5)];
   }
 
   /**
    * This method is used to calculate how the temperature feels like
    *
-   * @param temp This is a temperature
-   * @param wind This is a wind speed
+   * @param readings This is a list of readings
    * @return This returns how the temperature feels like
    */
-  public static double windChill(double temp, double wind) {
+  public static double windChill(List<Reading> readings) {
+    double temp = getLatestReading(readings).temperature;
+    double wind = getLatestReading(readings).windSpeed;
     double windChill = 13.12 + 0.6215 * temp - 11.37 * Math.pow(wind, 0.16) + 0.3965 * temp * Math.pow(wind, 0.16);
     return (int) (windChill * 100) / 100.0;
   }
@@ -172,10 +174,10 @@ public class StationUtils {
   /**
    * This method is used to get the weather icon based on weatherCondition
    *
-   * @param weatherCondition This is a weather Condition
+   * @param readings This is a list of readings
    * @return This returns a HashMap of weather icons
    */
-  public static String weatherConditionIcon(String weatherCondition) {
+  public static String weatherConditionIcon(List<Reading> readings) {
     HashMap<String, String> weatherIconString = new HashMap<String, String>() {
       {
         put("Clear", "sun icon");
@@ -188,6 +190,6 @@ public class StationUtils {
         put("Thunder", "bolt icon");
       }
     };
-    return weatherIconString.get(weatherCondition);
+    return weatherIconString.get(getWeatherCondition(readings));
   }
 }
