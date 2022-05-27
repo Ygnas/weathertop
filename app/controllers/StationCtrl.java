@@ -13,6 +13,7 @@ public class StationCtrl extends Controller {
   public static void index(Long id) {
     Member member = Accounts.getLoggedInMember();
     Station station = Station.findById(id);
+    if (!member.stations.contains(station)) redirect("/dashboard");
     Logger.info("Station id = " + id);
     render("station.html", station);
   }
