@@ -6,7 +6,13 @@ Allowing user to view the readings, delete them or add new ones.
 
 ## Local Development setup
 
-Inside application.conf comment and uncomment shown lines.
+Navigate to project directory and run:
+
+```sh
+play idealize
+```
+
+Inside **application.conf** comment and uncomment shown lines.
 
 ```sh
 application.mode=dev
@@ -15,13 +21,31 @@ application.mode=dev
 db.default=mem
 #db=${SECRET}
 ```
+
+## Deploy locally
+
+Change **application.conf** as above
+
 And run:
+
 ```sh
 play run
 ```
+
 ## Production setup
 
-Set up environment variable
+Inside **application.conf** comment and uncomment shown lines.
+
+```sh
+#application.mode=dev
+application.mode=prod
+
+#db.default=mem
+db=${SECRET}
+```
+
+Set up environment variable on your local machine or server
+
 ```sh
 SECRET=yourPostgreSQLlink
 ```
