@@ -61,7 +61,7 @@ public class StationUtils {
    * @return This returns temperature to fahrenheit
    */
   public static double getTemperatureInF(List<Reading> readings) {
-    return getLatestReading(readings).temperature * 9 / 5 + 32;
+    return (int) (getLatestReading(readings).temperature * 9 / 5 + 32) * 10 / 10;
   }
 
   /**
@@ -132,14 +132,14 @@ public class StationUtils {
    * @param station This is a Station
    * @return This returns hashmap with all the min max values
    */
-  public static HashMap<String, Double> getMinMaxValues(Station station) {
-    HashMap<String, Double> minMaxValues = new HashMap<>();
-    minMaxValues.put("temperatureMin", Collections.min(station.readings, Comparator.comparing(reading -> reading.temperature)).temperature);
-    minMaxValues.put("temperatureMax", Collections.max(station.readings, Comparator.comparing(reading -> reading.temperature)).temperature);
-    minMaxValues.put("windSpeedMin", Collections.min(station.readings, Comparator.comparing(reading -> reading.windSpeed)).windSpeed);
-    minMaxValues.put("windSpeedMax", Collections.max(station.readings, Comparator.comparing(reading -> reading.windSpeed)).windSpeed);
-    minMaxValues.put("pressureMin", (double) Collections.min(station.readings, Comparator.comparing(reading -> reading.pressure)).pressure);
-    minMaxValues.put("pressureMax", (double) Collections.max(station.readings, Comparator.comparing(reading -> reading.pressure)).pressure);
+  public static HashMap<String, Float> getMinMaxValues(Station station) {
+    HashMap<String, Float> minMaxValues = new HashMap<>();
+    minMaxValues.put("temperatureMin", (float) Collections.min(station.readings, Comparator.comparing(reading -> reading.temperature)).temperature);
+    minMaxValues.put("temperatureMax", (float) Collections.max(station.readings, Comparator.comparing(reading -> reading.temperature)).temperature);
+    minMaxValues.put("windSpeedMin", (float) Collections.min(station.readings, Comparator.comparing(reading -> reading.windSpeed)).windSpeed);
+    minMaxValues.put("windSpeedMax", (float) Collections.max(station.readings, Comparator.comparing(reading -> reading.windSpeed)).windSpeed);
+    minMaxValues.put("pressureMin", (float) Collections.min(station.readings, Comparator.comparing(reading -> reading.pressure)).pressure);
+    minMaxValues.put("pressureMax", (float) Collections.max(station.readings, Comparator.comparing(reading -> reading.pressure)).pressure);
     return minMaxValues;
   }
 

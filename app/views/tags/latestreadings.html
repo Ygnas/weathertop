@@ -34,7 +34,7 @@
               <div class="column">
                 <h3 class="ui header inverted">Temp</h3>
                   #{if util.getLatestReading(station.readings)}
-                    <p>${util.getLatestReading(station.readings).temperature} C
+                    <p>${(float)util.getLatestReading(station.readings).temperature} C
                       <br> ${util.getTemperatureInF(station.readings)}
                       F</p>
                     <p>Max: ${util.getMinMaxValues(station).get("temperatureMax")} <br>
